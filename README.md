@@ -19,11 +19,5 @@ For general usage:
 ## License
 This implemented code is licensed under the GNU General Public License Version 3.
 - For alternative licenses, please contact *carl.nelson@durham.ac.uk*.
+
 The original concepts and ideas remain the property of the authors: Kanatani, Al-Sharadqah, Chernov and Sugaya.
-
-
-
-
-
-
-Usage: data = hyperRenormalisation (X, F0, maxIters, convThresh)
