@@ -13,7 +13,7 @@ This project contains one MATLAB function:
 
 For general usage:
 - Open MATLAB, right click project directory and add to path.
-- From the command prompt, call `data=hyperRenormalisation(im);` to run on image `im` with default options.
+- From the command prompt, call `data=hyperRenormalisation(X);` to run on data points `X` (and n-by-2 array) with default options.
 - Alternatively, define the parameters, as discussed in the paper and the code preamble.
 
 ## License
