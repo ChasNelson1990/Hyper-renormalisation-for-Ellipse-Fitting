@@ -4,12 +4,20 @@ function data = hyperRenormalisation (X, F0, maxIters, convThresh)
 % data = hyperRenormalisation (X)
 % data = hyperRenormalisation (X, F0, maxIters, convThresh)
 %
-% Details   This function contains an implementation of the
+% Details This function contains an implementation of the
 %     ellipse fitting algorithm as originally described in
 %     Hyper-renormalization: Non-minimization approach for
 %     geometric estimation by Kanatani, Al-Sharadqah, Chernov
 %     and Sugaya (2014). Available here:
 %     http://dx.doi.org/10.2197/ipsjtcva.6.143.
+%
+% Dependencies  This function requires five small functions for
+%     calculating the geomtric translation and rotation of the
+%     ellipse from the algebriac parameters: "imconicdiscr",
+%     "imconicrotate", "imconicrotation", "imconictranslate" and
+%     "imconictranslation" from "Fitting quadratic curves and
+%     surfaces" by Levente Hunyadi (2014) available from:
+%     http://uk.mathworks.com/matlabcentral/fileexchange/45356-fitting-quadratic-curves-and-surfaces
 %
 % Inputs  X - an n-by-2 array [x,y] of points in 2D
 %           F0 - a fixed constant as used in Eq. 3 of the original
@@ -35,10 +43,8 @@ function data = hyperRenormalisation (X, F0, maxIters, convThresh)
 % The original concepts and ideas remain the property of the
 % authors: Kanatani, Al-Sharadqah, Chernov and Sugaya.
 %
-% License   See included <a href="./LICENSE/">file</a> or visit
-%           <a href="https://github.com/ChasNelson1990/...
-%           	Ellipse-Detection-by-Hilbert-Edge-Detection-and-Ranging/">
-%			The GitHub Repository</a>
+% License   See included LICENSE file or visit the GitHub
+%   repository at https://github.com/ChasNelson1990/Hyper-renormalisation-for-Ellipse-Fitting
 
 %% Inputs
 if nargin<4 || isempty(convThresh); convThresh = 0.1; end

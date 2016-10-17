@@ -16,6 +16,9 @@ For general usage:
 - From the command prompt, call `data=hyperRenormalisation(X);` to run on data points `X` (and n-by-2 array) with default options.
 - Alternatively, define the parameters, as discussed in the paper and the code preamble.
 
+## Dependencies
+This function requires five small functions for calculating the geomtric translation and rotation of the ellipse from the algebriac parameters: "imconicdiscr", "imconicrotate", "imconicrotation", "imconictranslate" and "imconictranslation" from "Fitting quadratic curves and surfaces" by Levente Hunyadi (2014) available from: http://uk.mathworks.com/matlabcentral/fileexchange/45356-fitting-quadratic-curves-and-surfaces
+
 ## License
 This implemented code is licensed under the GNU General Public License Version 3.
 - For alternative licenses, please contact *carl.nelson@durham.ac.uk*.
