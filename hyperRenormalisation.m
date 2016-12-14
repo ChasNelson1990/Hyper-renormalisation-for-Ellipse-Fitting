@@ -52,6 +52,7 @@ if nargin<3 || isempty(maxIters); maxIters = 100; end
 if nargin<2 || isempty(F0); F0 = max(sqrt(X(:,1).^2 + X(:,2).^2)); end
 
 %% Normalize Data
+% figure, scatter(X(:,1),X(:,2)); xlim([0,64]), ylim([0,64]), axis equal, drawnow
 mx = mean(X(:,1));
 my = mean(X(:,2));
 sx = (max(X(:,1))-min(X(:,1)))/2;
@@ -62,6 +63,7 @@ sy = max(sx,sy);
 
 X(:,1) = (X(:,1)-mx)/sx;
 X(:,2) = (X(:,2)-my)/sy;
+% figure, scatter(X(:,1),X(:,2)); xlim([-1,1]), ylim([-1,1]), axis equal, drawnow
 
 %% Set-Up
 npoints = size(X,1);
@@ -131,6 +133,7 @@ end
 u = u';
 
 u = [u(1); 2*u(2); u(3); 2*u(4); 2*u(5); u(6)];
+% figure, example_conic_draw(u,[]); axis equal, drawnow
 
 %% Unnormalise
 par = [ u(1)*sy*sy,   ...
@@ -139,6 +142,7 @@ par = [ u(1)*sy*sy,   ...
         -2*u(1)*sy*sy*mx - u(2)*sx*sy*my + u(4)*sx*sy*sy,   ...
         -u(2)*sx*sy*mx - 2*u(3)*sx*sx*my + u(5)*sx*sx*sy,   ...
         u(1)*sy*sy*mx*mx + u(2)*sx*sy*mx*my + u(3)*sx*sx*my*my - u(4)*sx*sy*sy*mx - u(5)*sx*sx*sy*my + u(6)*sx*sx*sy*sy]';
+% figure, example_conic_draw(par,[]); axis equal, drawnow
 
 %% Extract Ellipse Parameters
 % Adjust parameters in vector p
@@ -163,7 +167,24 @@ par(4:5) = 2 * par(4:5);
 
 % Calculate translation and rotation of ellipse
 data(:,1:2) = imconictranslation(par);%position in space
+% disp(imconictranslate(par, -data(:,1:2)/2)')
+% figure, example_conic_draw(imconictranslate(par, -data(:,1:2)/2),[]); axis equal, drawnow
 R = imconicrotation(imconictranslate(par, -data(:,1:2)/2));%rotation matrix
-data(:,5) = acosd(-R(1,1));%orientation of major axis compared to x axis
+% disp(R)
+data(:,5) = acosd(abs(R(1,1)));%orientation of major axis compared to x axis
 
+% Fix angle phase wrapping
+data(:,5) = mod(90 + data(:,5),180);
+if par(2)>0
+    data(:,5) = 180-data(:,5);
+end
+
+end
+
+
+
+function line = example_conic_draw(p, w)
+line = imconic(p, w, []);
+p(abs(p) < 1e-15) = 0;
+set(line, 'Tag', mat2str(p, 3));
 end
